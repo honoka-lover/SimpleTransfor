@@ -2,7 +2,7 @@ from selenium import webdriver
 
 
 class Translate():
-    def __init__(self, source):
+    def __init__(self,source=''):
         options = webdriver.FirefoxOptions()
         options.add_argument("--headless")
         options.add_argument("--disable-gpu")
@@ -11,11 +11,14 @@ class Translate():
 
         self.browser.get("https://fanyi.youdao.com/")
         self.sentence = ''
-        self.src = source
         self.result = ""
+        self.src=source
         self.len = 0
 
-    def cut_text(self, text, lenth=500):
+    def read_src(self,source):
+        self.src = source
+
+    def cut_text(self, text, lenth=100):
         text += '\n'
         rst = []
         n = 0
@@ -55,6 +58,7 @@ class Translate():
 
 
     def trans(self):
+        self.result=''
         source = self.cut_text(self.src)
         #print(source)
         for i in source:
